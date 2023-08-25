@@ -6,5 +6,7 @@ public record PropertiesMappingConfiguration(
     IReadOnlyCollection<string> IgnoredSources,
     IReadOnlyCollection<string> IgnoredTargets,
     IReadOnlyCollection<PropertyMappingConfiguration> ExplicitMappings,
-    IgnoreObsoleteMembersStrategy IgnoreObsoleteMembersStrategy
+    IgnoreObsoleteMembersStrategy IgnoreObsoleteMembersStrategy,
+    bool IgnoreUnmappedSourceMembers,
+    bool IgnoreUnmappedTargetMembers
 );

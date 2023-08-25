@@ -54,7 +54,7 @@ public static class ObjectMemberMappingBodyBuilder
                 continue;
             }
 
-            if (targetMember.CanSet)
+            if (targetMember.CanSet && !ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers)
             {
                 ctx.BuilderContext.ReportDiagnostic(
                     DiagnosticDescriptors.SourceMemberNotFound,

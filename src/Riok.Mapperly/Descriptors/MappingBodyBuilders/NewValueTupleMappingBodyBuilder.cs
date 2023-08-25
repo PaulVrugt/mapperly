@@ -67,7 +67,10 @@ public static class NewValueTupleMappingBodyBuilder
                 return false;
             }
 
-            if (!TryFindConstructorParameterSourcePath(ctx, targetMember, out var sourcePath))
+            if (
+                !TryFindConstructorParameterSourcePath(ctx, targetMember, out var sourcePath)
+                && !ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers
+            )
             {
                 ctx.BuilderContext.ReportDiagnostic(
                     DiagnosticDescriptors.SourceMemberNotFound,
@@ -158,12 +161,13 @@ public static class NewValueTupleMappingBodyBuilder
         if (ctx.BuilderContext.SymbolAccessor.TryFindMemberPath(ctx.Mapping.SourceType, memberConfig.Source.Path, out sourcePath))
             return true;
 
-        ctx.BuilderContext.ReportDiagnostic(
-            DiagnosticDescriptors.SourceMemberNotFound,
-            memberConfig.Source,
-            ctx.Mapping.TargetType,
-            ctx.Mapping.SourceType
-        );
+        if (!ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers)
+            ctx.BuilderContext.ReportDiagnostic(
+                DiagnosticDescriptors.SourceMemberNotFound,
+                memberConfig.Source,
+                ctx.Mapping.TargetType,
+                ctx.Mapping.SourceType
+            );
         return false;
     }
 

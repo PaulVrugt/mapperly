@@ -56,7 +56,7 @@ public static class NewInstanceObjectMemberMappingBodyBuilder
                     ctx.IgnoredSourceMemberNames,
                     ignoreCase,
                     out var sourceMemberPath
-                )
+                ) && (targetMember.IsRequired || !ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers)
             )
             {
                 ctx.BuilderContext.ReportDiagnostic(
@@ -102,6 +102,7 @@ public static class NewInstanceObjectMemberMappingBodyBuilder
 
         if (
             !ctx.BuilderContext.SymbolAccessor.TryFindMemberPath(ctx.Mapping.SourceType, memberConfig.Source.Path, out var sourceMemberPath)
+            && !ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers
         )
         {
             ctx.BuilderContext.ReportDiagnostic(
@@ -322,7 +323,10 @@ public static class NewInstanceObjectMemberMappingBodyBuilder
             return false;
         }
 
-        if (!ctx.BuilderContext.SymbolAccessor.TryFindMemberPath(ctx.Mapping.SourceType, memberConfig.Source.Path, out sourcePath))
+        if (
+            !ctx.BuilderContext.SymbolAccessor.TryFindMemberPath(ctx.Mapping.SourceType, memberConfig.Source.Path, out sourcePath)
+            && !ctx.BuilderContext.Configuration.Properties.IgnoreUnmappedTargetMembers
+        )
         {
             ctx.BuilderContext.ReportDiagnostic(
                 DiagnosticDescriptors.SourceMemberNotFound,

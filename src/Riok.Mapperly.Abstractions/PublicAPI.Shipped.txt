@@ -46,6 +46,10 @@ Riok.Mapperly.Abstractions.MapperIgnoreSourceAttribute.Source.get -> string!
 Riok.Mapperly.Abstractions.MapperIgnoreTargetAttribute
 Riok.Mapperly.Abstractions.MapperIgnoreTargetAttribute.MapperIgnoreTargetAttribute(string! target) -> void
 Riok.Mapperly.Abstractions.MapperIgnoreTargetAttribute.Target.get -> string!
+Riok.Mapperly.Abstractions.MapperIgnoreAllUnmappedSourcesAttribute
+Riok.Mapperly.Abstractions.MapperIgnoreAllUnmappedSourcesAttribute.MapperIgnoreAllUnmappedSourcesAttribute() -> void
+Riok.Mapperly.Abstractions.MapperIgnoreAllUnmappedTargetsAttribute
+Riok.Mapperly.Abstractions.MapperIgnoreAllUnmappedTargetsAttribute.MapperIgnoreAllUnmappedTargetsAttribute() -> void
 Riok.Mapperly.Abstractions.MapPropertyAttribute
 Riok.Mapperly.Abstractions.MapPropertyAttribute.MapPropertyAttribute(string! source, string! target) -> void
 Riok.Mapperly.Abstractions.MapPropertyAttribute.MapPropertyAttribute(string![]! source, string![]! target) -> void

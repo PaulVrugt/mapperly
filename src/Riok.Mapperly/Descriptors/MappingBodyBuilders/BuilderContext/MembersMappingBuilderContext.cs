@@ -152,14 +152,17 @@ public abstract class MembersMappingBuilderContext<T> : IMembersBuilderContext<T
 
     private void AddUnmatchedSourceMembersDiagnostics()
     {
-        foreach (var sourceMemberName in _unmappedSourceMemberNames)
+        if (!BuilderContext.Configuration.Properties.IgnoreUnmappedSourceMembers)
         {
-            BuilderContext.ReportDiagnostic(
-                DiagnosticDescriptors.SourceMemberNotMapped,
-                sourceMemberName,
-                Mapping.SourceType,
-                Mapping.TargetType
-            );
+            foreach (var sourceMemberName in _unmappedSourceMemberNames)
+            {
+                BuilderContext.ReportDiagnostic(
+                    DiagnosticDescriptors.SourceMemberNotMapped,
+                    sourceMemberName,
+                    Mapping.SourceType,
+                    Mapping.TargetType
+                );
+            }
         }
     }
 }
